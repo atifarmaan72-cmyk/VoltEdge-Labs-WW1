@@ -1,0 +1,57 @@
+module jkcounter(d,clock,clear,q,light);
+input d;
+input clock , clear ;
+output  [1:0] q ;
+output reg [2:0] light;
+
+
+dff d0((~q[1]&~q[0]),clock,clear,q[0]);
+dff d1((~q[1]&q[0]),clock,clear,q[1]);
+
+always @(q)
+begin
+light[0] = q[1];
+light[1] = q[0];
+light[2] = (~q[1]&~q[0]);
+end
+
+
+//dff d2((~q[1]&q[0]),clock,clear,light[0]);
+//dff d3((~q[1]&~q[0]),clock,clear,light[1]);
+//dff d4(q[1],clock,clear,light[2]);
+
+
+//dff d2(q[3],clock,clear,q[2]);
+//dff d3(~q[0],clock,clear,q[3]);
+
+//dff d3(((~q[3])&(~q[2])&(~q[1])),clock,clear,q[3]);
+
+
+
+endmodule
+
+module dff(d,clock,clear,q);
+input d;
+input clock,clear ;
+output reg q ;
+wire in;
+
+
+always @(posedge clock)
+begin
+if (clear)
+q = 0;
+
+else if(d==0)
+q <= d ;
+
+
+
+else if(d==1)
+q <= d ;
+
+
+
+end
+
+endmodule
